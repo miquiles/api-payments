@@ -10,11 +10,12 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class UserDTO {
+public class ClientDTO {
 
     private String name;
     private String secondName;
     private LocalDate birthDate;
     private String document;
+    private String mail;
 
 }

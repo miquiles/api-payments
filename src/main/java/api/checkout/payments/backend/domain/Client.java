@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @Entity
 @Table(name = "client")
-public class User {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,7 @@ public class User {
     private String secondName;
     private LocalDate birthDate;
     private String document;
+    private String mail;
 
     @OneToOne
     private Autentication userAutentication;

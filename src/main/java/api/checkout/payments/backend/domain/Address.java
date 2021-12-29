@@ -1,7 +1,5 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,6 +21,6 @@ public class Address {
     private String district;
 
     @OneToOne
-    private User user;
+    private Client client;
 
 }

@@ -1,7 +1,5 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +20,5 @@ public class CreditCard {
     private String cardBanner;
 
     @OneToOne
-    private User user;
+    private Client client;
 }

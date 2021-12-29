@@ -24,7 +24,7 @@ public class Autentication implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Client client;
 
 
 }
