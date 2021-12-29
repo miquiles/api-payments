@@ -1,16 +1,30 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.Data;
+import lombok.*;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @Entity
-public class Autentication {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Autentication implements Serializable {
 
+    protected static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String mail;
     private String password;
     private Boolean enable;
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 
 }

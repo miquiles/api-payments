@@ -1,9 +1,15 @@
 package api.checkout.payments.backend.payments;
 
+import org.springframework.web.bind.annotation.GetMapping;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class Transactions {
+@Entity
+public class Transaction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDateTime transactionDate;
     private Integer amount;

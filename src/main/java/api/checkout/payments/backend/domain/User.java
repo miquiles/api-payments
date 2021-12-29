@@ -1,12 +1,17 @@
 package api.checkout.payments.backend.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Table(name = "client")
 public class User {
 
     @Id
@@ -16,11 +21,14 @@ public class User {
     private String secondName;
     private LocalDate birthDate;
     private String document;
+
     @OneToOne
     private Autentication userAutentication;
-    @OneToMany
-    private Address userAddress;
-    @OneToMany
+
+    @OneToOne
+    private Address address;
+
+    @OneToOne
     private CreditCard creditCard;
 
 }
