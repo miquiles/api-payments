@@ -20,6 +20,9 @@ public class CreditCard {
     private String nameCard;
     private String cardBanner;
 
+    @OneToOne
+    private Client client;
+
 
 
 }

@@ -1,4 +1,4 @@
-package api.checkout.payments.backend.dto;
+package api.checkout.payments.backend.domain.dto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +16,6 @@ public class CreditCardDTO {
     private String expiredDate;
     private String nameCard;
     private String cardBanner;
+
 
 }

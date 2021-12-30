@@ -1,4 +1,4 @@
-package api.checkout.payments.backend.dto;
+package api.checkout.payments.backend.domain.dto;
 
 
 import lombok.Builder;

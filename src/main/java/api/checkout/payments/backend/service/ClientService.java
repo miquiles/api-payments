@@ -3,9 +3,9 @@ package api.checkout.payments.backend.service;
 import api.checkout.payments.backend.domain.Address;
 import api.checkout.payments.backend.domain.Client;
 import api.checkout.payments.backend.domain.CreditCard;
-import api.checkout.payments.backend.dto.AddressDTO;
-import api.checkout.payments.backend.dto.ClientDTO;
-import api.checkout.payments.backend.dto.CreditCardDTO;
+import api.checkout.payments.backend.domain.dto.AddressDTO;
+import api.checkout.payments.backend.domain.dto.ClientDTO;
+import api.checkout.payments.backend.domain.dto.CreditCardDTO;
 import api.checkout.payments.backend.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
+    
     @Autowired
     ClientRepository clientRepository;
 
