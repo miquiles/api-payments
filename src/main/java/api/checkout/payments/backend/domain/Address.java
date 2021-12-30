@@ -1,12 +1,13 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-
+@Builder
 @Entity
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Setter
 public class Address {
     @Id
@@ -20,7 +21,6 @@ public class Address {
     private String state;
     private String district;
 
-    @OneToOne
-    private Client client;
+
 
 }

@@ -1,9 +1,6 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +8,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "client")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Client {
 
     @Id
@@ -22,14 +21,14 @@ public class Client {
     private LocalDate birthDate;
     private String document;
     private String mail;
+    private String password;
+    private Boolean enable;
 
-    @OneToOne
-    private Autentication userAutentication;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private CreditCard creditCard;
 
 }

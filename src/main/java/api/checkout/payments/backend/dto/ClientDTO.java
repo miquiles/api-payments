@@ -17,5 +17,10 @@ public class ClientDTO {
     private LocalDate birthDate;
     private String document;
     private String mail;
+    private String password;
+    private Boolean enable;
+
+    private AddressDTO addressDTO;
+    private CreditCardDTO creditCardDTO;
 
 }

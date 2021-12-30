@@ -1,14 +1,15 @@
 package api.checkout.payments.backend.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class CreditCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,6 @@ public class CreditCard {
     private String nameCard;
     private String cardBanner;
 
-    @OneToOne
-    private Client client;
+
+
 }
