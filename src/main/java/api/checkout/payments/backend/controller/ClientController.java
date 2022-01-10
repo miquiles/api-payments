@@ -1,9 +1,13 @@
 package api.checkout.payments.backend.controller;
 
 import api.checkout.payments.backend.domain.Client;
+import api.checkout.payments.backend.domain.CreditCard;
+import api.checkout.payments.backend.domain.dto.AddressDTO;
 import api.checkout.payments.backend.domain.dto.ClientDTO;
+import api.checkout.payments.backend.domain.dto.CreditCardDTO;
 import api.checkout.payments.backend.service.ClientService;
 import com.sun.istack.NotNull;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,29 +15,57 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Slf4j
 @RestController
-@RequestMapping("/client/")
+@RequestMapping("/clients/")
 public class ClientController {
 
     @Autowired
     ClientService clientService;
 
+    @GetMapping("/mock")
+    public ClientDTO mock (){
+        AddressDTO addressDTO = new AddressDTO();
+
+        addressDTO.setCity("recife");
+        addressDTO.setDistrict("Pe");
+        addressDTO.setStreet("jurema");
+        addressDTO.setZipCode("121212");
+
+        CreditCardDTO creditCardDTO = new CreditCardDTO();
+        creditCardDTO.setCardBanner("ëlo");
+        creditCardDTO.setCardNumber("22");
+        creditCardDTO.setAuthorizationCode("444");
+        creditCardDTO.setExpiredDate("29/05/2022");
+
+        return ClientDTO.builder()
+                .name("name")
+                .birthDate(LocalDate.of(1993, 05, 29))
+                .mail("miquies@gmail.com")
+                .document("123")
+                .enable(true)
+                .secondName("miquiles")
+                .addressDTO(addressDTO)
+                .creditCardDTO(creditCardDTO)
+                .build();
+    }
+
     @PostMapping("register")
     public ResponseEntity<ClientDTO> createNewUser(@RequestBody @Validated ClientDTO clientDTO){
-
         var user = clientService.builderClient(clientDTO);
-
-        if(!clientService.verifiUser(clientDTO.getMail()).isPresent()){
-            clientService.save(user);
-        }else{
-            return new ResponseEntity<>(clientDTO, HttpStatus.NOT_ACCEPTABLE);
-
+        try {
+            if (clientService.verifiUser(user.getMail()) == true) {
+                clientService.save(user);
+                return new ResponseEntity<>(clientDTO, HttpStatus.CREATED);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+        return new ResponseEntity<>(clientDTO, HttpStatus.NOT_ACCEPTABLE);
 
-        return new ResponseEntity<>(clientDTO, HttpStatus.CREATED);
     }
 
     @PostMapping("reset")
@@ -43,11 +75,12 @@ public class ClientController {
     }
 
     @GetMapping("{id}/fetch")
-    @ResponseStatus(HttpStatus.OK)
-    public Optional<Client> findClient (@PathVariable("id") Long id){
-
+    public ResponseEntity<?> findClient (@PathVariable("id") Long id){
         var client = clientService.fetchClient(id);
-        return client;
+        if(client.isPresent()){
+            return ResponseEntity.ok(client.get());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping("new-client")

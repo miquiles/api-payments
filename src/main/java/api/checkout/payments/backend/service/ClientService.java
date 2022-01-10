@@ -37,8 +37,13 @@ public class ClientService {
                 .build();
     }
 
-    public Optional<String> verifiUser(String mail){
-        return clientRepository.findByMail(mail);
+    public Boolean verifiUser(String mail) throws Exception{
+       // var clientMail = clientRepository.findByMail(mail).orElseThrow(() -> new Exception("Mail not found"));
+        var clientMail = clientRepository.findByMail(mail);
+        if(clientMail.isEmpty()){
+            return true;
+        }
+        return false;
     }
 
     public Client save (Client client){

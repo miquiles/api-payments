@@ -1,12 +1,12 @@
 package api.checkout.payments.backend.domain.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressDTO {
     private String complement;
     private String street;
