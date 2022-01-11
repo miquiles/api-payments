@@ -16,10 +16,14 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    @Column(length = 20, nullable = false)
+    private String firstName;
+    @Column(length = 30, nullable = false)
     private String secondName;
+    @Column(nullable = false)
     private LocalDate birthDate;
     private String document;
+    @Column(unique = true, nullable = false)
     private String mail;
     private String password;
     private Boolean enable;

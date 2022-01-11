@@ -18,17 +18,16 @@ public class ClientService {
     @Autowired
     ClientRepository clientRepository;
 
-    public Optional<Client> fetchClient(Long id) {
-        return clientRepository.findById(id);
+    public Optional<Client> fetchClient(Long id) throws Exception {
+        return Optional.ofNullable(clientRepository.findById(id).orElseThrow(() -> new Exception("Client not found")));
     }
 
     public Client builderClient(ClientDTO clientDTO){
 
         return  Client.builder()
-                .name(clientDTO.getName())
+                .firstName(clientDTO.getName())
                 .mail(clientDTO.getMail())
                 .password(clientDTO.getPassword())
-                .enable(clientDTO.getEnable())
                 .birthDate(clientDTO.getBirthDate())
                 .document(clientDTO.getDocument())
                 .secondName(clientDTO.getSecondName())
@@ -38,7 +37,6 @@ public class ClientService {
     }
 
     public Boolean verifiUser(String mail) throws Exception{
-       // var clientMail = clientRepository.findByMail(mail).orElseThrow(() -> new Exception("Mail not found"));
         var clientMail = clientRepository.findByMail(mail);
         if(clientMail.isEmpty()){
             return true;
@@ -50,14 +48,9 @@ public class ClientService {
       return clientRepository.save(client);
     }
 
-    public void newPassord(String mail, String password){
-        var client = clientRepository.findEntityByMail(mail);
-        if(!(client.getMail().equals(null) || client.getMail().isBlank())){
-            client.setPassword(password);
-        }else{
-            System.out.println("Usuario inválido");
-        }
-
+    public void newPassword(String mail, String password) throws Exception {
+        var client = clientRepository.findEntityByMail(mail).orElseThrow(() -> new Exception("Mail not found"));
+        client.setPassword(password);
     }
 
 

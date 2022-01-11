@@ -10,6 +10,6 @@ import java.util.Optional;
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
      Optional<String> findByMail(String mail);
-     Client findEntityByMail(String mail);
+     Optional<Client> findEntityByMail(String mail);
 
 }
