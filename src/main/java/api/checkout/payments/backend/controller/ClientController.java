@@ -27,7 +27,10 @@ public class ClientController {
 
     ClientService clientService;
 
-    @PostMapping("register")
+    @GetMapping("heroku")
+    public String herokuTest(){return "we are oline";}
+
+   @PostMapping("register")
     public ResponseEntity<ClientDTO> createNewUser(@RequestBody @Validated ClientDTO clientDTO){
         var user = clientService.builderClient(clientDTO);
         try {
