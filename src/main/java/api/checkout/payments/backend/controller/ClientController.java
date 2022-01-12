@@ -34,7 +34,7 @@ public class ClientController {
     public ResponseEntity<ClientDTO> createNewUser(@RequestBody @Validated ClientDTO clientDTO){
         var user = clientService.builderClient(clientDTO);
         try {
-            if (clientService.verifiUser(user.getMail()) == true) {
+            if (clientService.verifyUser(user.getMail()) == true) {
                 clientService.save(user);
                 return new ResponseEntity<>(clientDTO, HttpStatus.CREATED);
             }
@@ -51,11 +51,11 @@ public class ClientController {
         clientService.newPassword(mail, password);
     }
 
-    @GetMapping("fetch-client/{id}")
-    public ResponseEntity<?> findClient (@PathVariable("id") Long id) throws Exception {
+    @GetMapping("fetch-client/")
+    public ResponseEntity<?> findClient (@RequestParam String mail) throws Exception {
 
         try{
-            var client = clientService.fetchClient(id);
+            var client = clientService.fetchClientByEmail(mail);
             return ResponseEntity.ok(client.get());}
         catch (Exception e){
             e.printStackTrace();
