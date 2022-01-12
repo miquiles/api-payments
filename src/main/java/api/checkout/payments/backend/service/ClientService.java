@@ -8,6 +8,7 @@ import api.checkout.payments.backend.domain.dto.ClientDTO;
 import api.checkout.payments.backend.domain.dto.CreditCardDTO;
 import api.checkout.payments.backend.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,7 +37,7 @@ public class ClientService {
                 .build();
     }
 
-    public Boolean verifiUser(String mail) throws Exception{
+    public Boolean verifyUser(String mail) throws Exception{
         var clientMail = clientRepository.findByMail(mail);
         if(clientMail.isEmpty()){
             return true;
@@ -74,6 +75,11 @@ public class ClientService {
                 .expiredDate(creditCardDTO.getExpiredDate())
                 .nameCard(creditCardDTO.getNameCard())
                 .build();
+    }
+
+    public Optional<Client> fetchClientByEmail(String email) throws Exception{
+
+        return Optional.ofNullable(clientRepository.findEntityByMail(email).orElseThrow(() -> new Exception("Mail not found")));
     }
 
 
