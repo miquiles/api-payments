@@ -31,20 +31,16 @@ public class ClientController {
     public String herokuTest(){return "we are oline";}
 
    @PostMapping("register")
-    public ResponseEntity<ClientDTO> createNewUser(@RequestBody @Validated ClientDTO clientDTO){
+    public ResponseEntity<?> createNewUser(@RequestBody @Validated ClientDTO clientDTO){
         var user = clientService.builderClient(clientDTO);
         try {
-            if (clientService.verifyUser(user.getMail()) == true) {
-                clientService.save(user);
-                return new ResponseEntity<>(clientDTO, HttpStatus.CREATED);
+            this.clientService.save(user);
+            return new ResponseEntity<>(clientDTO, HttpStatus.CREATED);
+            } catch (Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-
-    }
+   }
 
     @PostMapping("reset")
     public void changePassword(@RequestParam("mail") @NotNull String mail, @RequestParam("password") String password) throws Exception {
