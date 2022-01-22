@@ -16,22 +16,16 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class ClientDTO {
     @NotEmpty
-    @NotNull
     private String name;
     private String secondName;
     @NotNull
     private LocalDate birthDate;
     @NotEmpty
-    @NotNull
     private String document;
     @NotEmpty
-    @NotNull
     private String mail;
     @NotEmpty
-    @NotNull
     private String password;
-
-
     private AddressDTO addressDTO;
     private CreditCardDTO creditCardDTO;
 

@@ -37,7 +37,7 @@ public class ClientService {
                 .build();
     }
 
-    public Boolean verifyUser(String mail) throws Exception{
+    private Boolean verifyUser(String mail) throws Exception{
         var clientMail = clientRepository.findByMail(mail);
         if(clientMail.isEmpty()){
             return true;
@@ -45,8 +45,11 @@ public class ClientService {
         return false;
     }
 
-    public Client save (Client client){
-      return clientRepository.save(client);
+    public Client save (Client client) throws Exception {
+        if (verifyUser(client.getMail()) == true) {
+            return clientRepository.save(client);
+        }
+        throw new Exception("Verify your mail");
     }
 
     public void newPassword(String mail, String password) throws Exception {
@@ -55,7 +58,7 @@ public class ClientService {
     }
 
 
-    public Address builderAddress(AddressDTO addressDTO) {
+    private Address builderAddress(AddressDTO addressDTO) {
         return Address.builder()
                 .city(addressDTO.getCity())
                 .complement(addressDTO.getComplement())
@@ -67,7 +70,7 @@ public class ClientService {
                 .build();
     }
 
-    public CreditCard builderCreditCard(CreditCardDTO creditCardDTO) {
+    private CreditCard builderCreditCard(CreditCardDTO creditCardDTO) {
         return CreditCard.builder()
                 .authorizationCode(creditCardDTO.getAuthorizationCode())
                 .cardBanner(creditCardDTO.getCardBanner())
@@ -78,8 +81,7 @@ public class ClientService {
     }
 
     public Optional<Client> fetchClientByEmail(String email) throws Exception{
-
-        return Optional.ofNullable(clientRepository.findEntityByMail(email).orElseThrow(() -> new Exception("Mail not found")));
+        return Optional.ofNullable(clientRepository.findEntityByMail(email).orElseThrow(() -> new Exception("Client not found")));
     }
 
 
