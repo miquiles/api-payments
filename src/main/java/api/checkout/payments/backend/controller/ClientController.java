@@ -48,7 +48,7 @@ public class ClientController {
     }
 
     @GetMapping("fetch-client/")
-    public ResponseEntity<?> findClient (@RequestParam String mail) throws Exception {
+    public ResponseEntity<?> findClient (@RequestParam("mail") String mail) throws Exception {
 
         try{
             var client = clientService.fetchClientByEmail(mail);
